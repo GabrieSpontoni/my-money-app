@@ -6,7 +6,7 @@ function sidebar() {
     <div>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* Brand Logo */}
-        <a className="brand-link">
+        <a className="brand-link" href="/#">
           <img
             src="https://thumbs.dreamstime.com/b/%C3%ADcone-do-vetor-do-d%C3%B3lar-do-dinheiro-ilustra%C3%A7%C3%A3o-preto-e-branco-do-dinheiro-%C3%ADcone-linear-cont%C3%ADnuo-da-opera%C3%A7%C3%A3o-banc%C3%A1ria-92966049.jpg"
             alt="My money app"

@@ -1,6 +1,6 @@
 const INITIAL_STATE = { selected: "" };
 
-export default (state = INITIAL_STATE, action) => {
+const tabReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "TAB_SELECTED":
       return { ...state, selected: action.payload };
@@ -8,3 +8,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default tabReducer;
