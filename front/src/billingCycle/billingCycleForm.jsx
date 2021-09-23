@@ -1,19 +1,55 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, formValueSelector } from "redux-form";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import LabelAndInput from "../common/form/labelAndInput";
+import { cancel } from "./billingCycleActions";
+import CredtList from "./creditList";
 
 class BillingCycleForm extends Component {
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, readOnly, credits } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <div className="box-body">
-          <Field name="name" component="input" />
-          <Field name="month" component="input" />
-          <Field name="year" component="input" />
+        <div className="card-body">
+          <div className="row">
+            <Field
+              name="name"
+              component={LabelAndInput}
+              label="Nome"
+              placeholder="Informe o nome"
+              readOnly={readOnly}
+            />
+            <Field
+              name="month"
+              component={LabelAndInput}
+              label="Mês"
+              placeholder="Informe o mês"
+              type="number"
+              readOnly={readOnly}
+            />
+            <Field
+              name="year"
+              component={LabelAndInput}
+              label="Ano"
+              placeholder="Informe o Ano"
+              type="number"
+              readOnly={readOnly}
+            />
+            <CredtList list={credits} />
+          </div>
         </div>
-        <div>
-          <button type="submit" className="btn btn-primary">
-            Submit
+        <div className="card-footer">
+          <button type="submit" className={`btn btn-${this.props.submitClass}`}>
+            {this.props.submitLabel}
+          </button>
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={this.props.cancel}
+          >
+            Cancelar
           </button>
         </div>
       </form>
@@ -21,4 +57,16 @@ class BillingCycleForm extends Component {
   }
 }
 
-export default reduxForm({ form: "billingCycleForm" })(BillingCycleForm);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ cancel }, dispatch);
+
+const selector = formValueSelector("billingCycleForm");
+const mapStateToProps = (state) => ({
+  credits: selector(state, "credits"),
+  debts: selector(state, "debts"),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(reduxForm({ form: "billingCycleForm" })(BillingCycleForm));
