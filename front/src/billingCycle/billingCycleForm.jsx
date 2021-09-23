@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 import LabelAndInput from "../common/form/labelAndInput";
 import { cancel } from "./billingCycleActions";
 import CredtList from "./creditList";
+import DebitList from "./debitList";
 
 class BillingCycleForm extends Component {
   render() {
-    const { handleSubmit, readOnly, credits } = this.props;
+    const { handleSubmit, readOnly, credits, debts } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <div className="card-body">
@@ -37,7 +38,12 @@ class BillingCycleForm extends Component {
               type="number"
               readOnly={readOnly}
             />
+          </div>
+          <div className="card text-green">
             <CredtList list={credits} />
+          </div>
+          <div className="card text-red">
+            <DebitList list={debts} />
           </div>
         </div>
         <div className="card-footer">

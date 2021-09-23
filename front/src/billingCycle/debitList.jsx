@@ -6,13 +6,13 @@ import { Field, arrayInsert, arrayRemove } from "redux-form";
 class credtList extends Component {
   add(index, item = {}) {
     if (!this.props.readOnly) {
-      this.props.arrayInsert("billingCycleForm", "credits", index, item);
+      this.props.arrayInsert("billingCycleForm", "debts", index, item);
     }
   }
 
   remove(index) {
     if (!this.props.readOnly && this.props.list.length > 1) {
-      this.props.arrayRemove("billingCycleForm", "credits", index);
+      this.props.arrayRemove("billingCycleForm", "debts", index);
     }
   }
 
@@ -22,10 +22,13 @@ class credtList extends Component {
     return list.map((item, index) => (
       <tr key={index}>
         <td>
-          <Field name={`credits[${index}].name`} component="input" />
+          <Field name={`debts[${index}].name`} component="input" />
         </td>
         <td>
-          <Field name={`credits[${index}].value`} component="input" />
+          <Field name={`debts[${index}].value`} component="input" />
+        </td>
+        <td>
+          <Field name={`debts[${index}].status`} component="input" />
         </td>
         <td>
           <div className="btn-group btn-group-toggle">
@@ -58,12 +61,13 @@ class credtList extends Component {
   render() {
     return (
       <div className="card-body">
-        <legend>Créditos</legend>
+        <legend>Débitos</legend>
         <table className="table table-bordered">
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Valor do crédito</th>
+              <th>Valor do débito</th>
+              <th>Status</th>
               <th className="table-actions">Ações</th>
             </tr>
           </thead>
