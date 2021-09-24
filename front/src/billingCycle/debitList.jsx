@@ -72,19 +72,23 @@ class credtList extends Component {
   }
   render() {
     return (
-      <div className="card-body table-responsive p-1">
-        <legend>Débitos</legend>
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Valor do débito</th>
-              <th>Status</th>
-              <th className="table-actions">Ações</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderRows()}</tbody>
-        </table>
+      <div className="card ">
+        <h2 className="card-header text-red card border-danger mb-3">
+          Débitos
+        </h2>
+        <div className="card-body table-responsive p-1">
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Valor do débito</th>
+                <th>Status</th>
+                <th className="table-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderRows()}</tbody>
+          </table>
+        </div>
       </div>
     );
   }
