@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import LabelAndInput from "../common/form/labelAndInput";
-import { cancel } from "./billingCycleActions";
+import { init } from "./billingCycleActions";
 import CredtList from "./creditList";
 import DebitList from "./debitList";
 
@@ -40,10 +40,10 @@ class BillingCycleForm extends Component {
             />
           </div>
           <div className="card text-green">
-            <CredtList list={credits} />
+            <CredtList list={credits} readOnly={readOnly} />
           </div>
           <div className="card text-red">
-            <DebitList list={debts} />
+            <DebitList list={debts} readOnly={readOnly} />
           </div>
         </div>
         <div className="card-footer">
@@ -53,7 +53,7 @@ class BillingCycleForm extends Component {
           <button
             type="button"
             className="btn btn-default"
-            onClick={this.props.cancel}
+            onClick={this.props.init}
           >
             Cancelar
           </button>
@@ -63,8 +63,7 @@ class BillingCycleForm extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ cancel }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ init }, dispatch);
 
 const selector = formValueSelector("billingCycleForm");
 const mapStateToProps = (state) => ({
@@ -75,4 +74,8 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(reduxForm({ form: "billingCycleForm" })(BillingCycleForm));
+)(
+  reduxForm({ form: "billingCycleForm", destroyOnUnmount: false })(
+    BillingCycleForm
+  )
+);

@@ -1,5 +1,5 @@
 import { toastr } from "react-redux-toastr";
-import { selectTab } from "../common/tab/tabActions";
+import { selectTab, showTabs } from "../common/tab/tabActions";
 import { reset as resetForm, initialize } from "redux-form";
 import axios from "axios";
 
@@ -20,11 +20,7 @@ export function create(values) {
       .post(`${BASE_URL}/billingCycles`, values)
       .then((resp) => {
         toastr.success("Sucesso", "Operação realizada com sucesso");
-        dispatch([
-          getList(),
-          selectTab("tabList"),
-          resetForm("billingCycleForm"),
-        ]);
+        dispatch([init()], resetForm("billingCycleForm"));
       })
       .catch((e) => {
         toastr.error("erro na operação tente novamente", e);
@@ -40,11 +36,7 @@ export function update(values) {
       .put(`${BASE_URL}/billingCycles/${id}`, values)
       .then((resp) => {
         toastr.success("Sucesso", "Operação realizada com sucesso");
-        dispatch([
-          getList(),
-          selectTab("tabList"),
-          resetForm("billingCycleForm"),
-        ]);
+        dispatch([init(), resetForm("billingCycleForm")]);
       })
       .catch((e) => {
         toastr.error("erro na operação tente novamente", e);
@@ -58,11 +50,7 @@ export function remove(values) {
       .delete(`${BASE_URL}/billingCycles/${id}`, values)
       .then((resp) => {
         toastr.success("Sucesso", "Operação realizada com sucesso");
-        dispatch([
-          getList(),
-          selectTab("tabList"),
-          resetForm("billingCycleForm"),
-        ]);
+        dispatch([init(), resetForm("billingCycleForm")]);
       })
       .catch((e) => {
         toastr.error("erro na operação tente novamente", e);
@@ -71,19 +59,26 @@ export function remove(values) {
 }
 
 export function showUpdate(billingCycle) {
-  return [selectTab("tabUpdate"), initialize("billingCycleForm", billingCycle)];
+  return [
+    showTabs("tabUpdate"),
+    selectTab("tabUpdate"),
+    initialize("billingCycleForm", billingCycle),
+  ];
 }
 
 export function showDelete(billingCycle) {
-  return [selectTab("tabDelete"), initialize("billingCycleForm", billingCycle)];
-}
-
-export function cancel() {
-  return (dispatch) => {
-    dispatch([getList(), selectTab("tabList"), resetForm("billingCycleForm")]);
-  };
+  return [
+    showTabs("tabDelete"),
+    selectTab("tabDelete"),
+    initialize("billingCycleForm", billingCycle),
+  ];
 }
 
 export function init() {
-  return [getList(), initialize("billingCycleForm", INITIAL_VALUES)];
+  return [
+    showTabs("tabList", "tabCreate"),
+    selectTab("tabList"),
+    getList(),
+    initialize("billingCycleForm", INITIAL_VALUES),
+  ];
 }

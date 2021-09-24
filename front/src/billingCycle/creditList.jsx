@@ -22,10 +22,18 @@ class credtList extends Component {
     return list.map((item, index) => (
       <tr key={index}>
         <td>
-          <Field name={`credits[${index}].name`} component="input" />
+          <Field
+            name={`credits[${index}].name`}
+            component="input"
+            readOnly={this.props.readOnly}
+          />
         </td>
         <td>
-          <Field name={`credits[${index}].value`} component="input" />
+          <Field
+            name={`credits[${index}].value`}
+            component="input"
+            readOnly={this.props.readOnly}
+          />
         </td>
         <td>
           <div className="btn-group btn-group-toggle">
@@ -57,7 +65,7 @@ class credtList extends Component {
   }
   render() {
     return (
-      <div className="card-body">
+      <div className="card-body table-responsive p-1">
         <legend>Créditos</legend>
         <table className="table table-bordered">
           <thead>
